@@ -113,8 +113,16 @@ export default function Index() {
     }, 100);
   };
 
+  const calculateScore = () => {
+    let total = 0;
+    Object.values(answers).forEach(value => {
+      total += value;
+    });
+    return total;
+  };
+
   const handleViewResult = () => {
-    alert('Результаты опроса сохранены! В полной версии здесь будет подробный анализ.');
+    setCurrentScreen(9);
   };
 
   if (currentScreen === 0) {
@@ -253,6 +261,53 @@ export default function Index() {
             className="w-full h-14 text-lg font-semibold rounded-full bg-primary hover:bg-primary/90"
           >
             Узнать результат
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentScreen === 9) {
+    const score = calculateScore();
+    const maxScore = questions.length * 3;
+    
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-yellow-400 to-yellow-500 flex flex-col items-center justify-between p-6">
+        <div className="w-full max-w-md pt-12 pb-24 space-y-6 animate-fade-in">
+          <Card className="p-6 bg-white shadow-xl rounded-3xl space-y-4">
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600">
+                Ваш результат: <span className="text-red-600 font-bold text-lg">{score} баллов</span>
+              </p>
+              <div className="inline-block px-4 py-1.5 bg-red-600 text-white font-bold rounded-full text-sm">
+                Высокий риск
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold leading-tight">
+                Необходима комплексная оценка и поддержка
+              </h2>
+
+              <div className="space-y-2">
+                <h3 className="font-bold text-base">Рекомендации:</h3>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  Ваши ответы указывают на значительные проблемы, которые могут существенно влиять на ваше здоровье и качество жизни.
+                </p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  Помните, что комплексные проблемы со здоровьем, такие как ожирение, являются заболеваниями, требующими профессионального медицинского подхода и напрямую влияют на продолжительность вашей жизни.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        <div className="w-full max-w-md pb-8">
+          <Button
+            onClick={() => setCurrentScreen(0)}
+            className="w-full h-14 text-lg font-semibold rounded-full bg-primary hover:bg-primary/90 shadow-lg"
+          >
+            Продолжить
           </Button>
         </div>
       </div>
