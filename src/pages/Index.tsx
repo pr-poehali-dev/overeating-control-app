@@ -314,58 +314,62 @@ export default function Index() {
     );
   }
 
-  const currentQuestion = questions[currentScreen - 1];
+  if (currentScreen >= 1 && currentScreen <= 6) {
+    const currentQuestion = questions[currentScreen - 1];
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b">
-        <div className="max-w-md mx-auto px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => currentScreen > 1 && setCurrentScreen(currentScreen - 1)}
-              className="shrink-0"
-            >
-              <Icon name="ChevronLeft" size={24} />
-            </Button>
-            <Progress value={progressPercentage} className="h-2" />
-          </div>
-        </div>
-      </div>
-
-      <div className="pt-20 pb-8 px-6">
-        <div className="max-w-md mx-auto space-y-8 animate-fade-in">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold">{currentQuestion.title}</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              {currentQuestion.subtitle}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {currentQuestion.options.map((option, index) => (
-              <Card
-                key={index}
-                className="p-4 cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
-                onClick={() => handleAnswer(currentQuestion.id, index)}
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b">
+          <div className="max-w-md mx-auto px-6 py-4">
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => currentScreen > 1 && setCurrentScreen(currentScreen - 1)}
+                className="shrink-0"
               >
-                <div className="flex items-start gap-3">
-                  <span className="text-3xl shrink-0">{option.emoji}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold">{option.label}</div>
-                    {option.description && (
-                      <div className="text-sm text-muted-foreground mt-1">
-                        {option.description}
-                      </div>
-                    )}
+                <Icon name="ChevronLeft" size={24} />
+              </Button>
+              <Progress value={progressPercentage} className="h-2" />
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-20 pb-8 px-6">
+          <div className="max-w-md mx-auto space-y-8 animate-fade-in">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-bold">{currentQuestion.title}</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {currentQuestion.subtitle}
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {currentQuestion.options.map((option, index) => (
+                <Card
+                  key={index}
+                  className="p-4 cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                  onClick={() => handleAnswer(currentQuestion.id, index)}
+                >
+                  <div className="flex items-start gap-3">
+                    <span className="text-3xl shrink-0">{option.emoji}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold">{option.label}</div>
+                      {option.description && (
+                        <div className="text-sm text-muted-foreground mt-1">
+                          {option.description}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 }
