@@ -88,7 +88,7 @@ export default function Index() {
   const handleAnswer = (questionId: number, optionIndex: number) => {
     setAnswers({ ...answers, [questionId]: optionIndex });
     
-    if (currentScreen < 6) {
+    if (currentScreen < questions.length) {
       setTimeout(() => {
         setCurrentScreen(currentScreen + 1);
       }, 300);
@@ -314,7 +314,7 @@ export default function Index() {
     );
   }
 
-  if (currentScreen >= 1 && currentScreen <= 6) {
+  if (currentScreen >= 1 && currentScreen <= questions.length) {
     const currentQuestion = questions[currentScreen - 1];
 
     return (
